@@ -29,6 +29,7 @@ for filename in glob.glob(os.path.join(path, '*.csv')):
 	matchNumber = 0
 	teamNumber = 0
 	comments = ""
+	sliderMeme = 0
 
 	f = open(filename)
 	csv_f = csv.reader(f)
@@ -50,9 +51,10 @@ for filename in glob.glob(os.path.join(path, '*.csv')):
 		matchNumber = row[8] 
 		teamNumber = row[9] 
 		comments = row[10]
+		sliderMeme = row[11]
 
-		insertData = ("INSERT INTO scoutingData " "(teamNumber, matchNumber, aGearSuccess, aLowFuel, aHighFuel, tGearNumber, tLowFuel, tHighFuel, ClimbSuccess, climbTime, Comments)" "VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)")
-		data = (teamNumber, matchNumber, gearsInAuto, autoLowShot, autoHighShot, teleopGears, lowShotTeleop, highShotTeleop, didItClimb, timerCount, comments)
+		insertData = ("INSERT INTO scoutingData " "(teamNumber, matchNumber, aGearSuccess, aLowFuel, aHighFuel, tGearNumber, tLowFuel, tHighFuel, ClimbSuccess, climbTime, Comments, defence)" "VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)")
+		data = (teamNumber, matchNumber, gearsInAuto, autoLowShot, autoHighShot, teleopGears, lowShotTeleop, highShotTeleop, didItClimb, timerCount, comments, sliderMeme)
 		
 		print('Team Number:  ', teamNumber)
 
