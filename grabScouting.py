@@ -15,13 +15,12 @@ cur = db.cursor()
 path = '/home/nomythic/ScoutingWork/scouting_files'
 
 # Grab files from tablet & delets it
-subprocess.call("./grabNewScouting.sh")
+#subprocess.call("./grabNewScouting.sh")
 
 # Parses csv files in scouting_files
 for filename in glob.glob(os.path.join(path, '*.csv')):
-	autoHighShot = 0
-	autoLowShot = 0
-	highShotTeleop = 0
+	autoFuelPoints = 0
+	teleopFuelPoints = 0
 	lowShotTeleop = 0
 	teleopGears = 0
 	gearsInAuto = 0
@@ -30,33 +29,33 @@ for filename in glob.glob(os.path.join(path, '*.csv')):
 	teamNumber = 0
 	comments = ""
 	sliderMeme = 0
+	gearPickerUper = 0
 
 	f = open(filename)
 	csv_f = csv.reader(f)
 	for row in csv_f:
-		autoHighShot = row[0]
-		autoLowShot = row[1]
-		highShotTeleop = row[2]
-		lowShotTeleop = row[3]	
-		teleopGears = row[4]
-		timerCount = row[5] 
-		if row[6] == True:
+		autoFuelPoints = row[0]
+		teleopFuelPoints = row[1]
+		teleopGears = row[2]
+		timerCount = row[3] 
+		if row[4] == " true":
 			gearsInAuto = 1
 		else:
 			gearsInAuto = 0
-		if row[7] == True:
+		if row[5] == " true":
 			didItClimb = 1
 		else:
 			didItClimb = 0   
-		matchNumber = row[8] 
-		teamNumber = row[9] 
-		comments = row[10]
-		sliderMeme = row[11]
+		matchNumber = row[6] 
+		teamNumber = row[7] 
+		comments = row[8]
+		sliderMeme = row[9]
+		gearPickerUper = row[10]
 
-		insertData = ("INSERT INTO scoutingData " "(teamNumber, matchNumber, aGearSuccess, aLowFuel, aHighFuel, tGearNumber, tLowFuel, tHighFuel, ClimbSuccess, climbTime, Comments, defence)" "VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)")
-		data = (teamNumber, matchNumber, gearsInAuto, autoLowShot, autoHighShot, teleopGears, lowShotTeleop, highShotTeleop, didItClimb, timerCount, comments, sliderMeme)
+		insertData = ("INSERT INTO scoutingData " "(teamNumber, matchNumber, aGearSuccess, aAllFuel, tGearNumber, tAllFuel, ClimbSuccess, climbTime, Comments, defense)" "VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s)")
+		data = (teamNumber, matchNumber, gearsInAuto, autoFuelPoints, teleopGears, teleopFuelPoints, didItClimb, timerCount, comments, sliderMeme)
 		
-		print('Team Number:  ', teamNumber)
+		print('Team Number:  ', teamNumber,' gearsInAuto ', gearsInAuto)
 
 		cur.execute(insertData,data)
 		db.commit()
