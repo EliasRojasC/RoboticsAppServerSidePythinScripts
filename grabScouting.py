@@ -50,10 +50,13 @@ for filename in glob.glob(os.path.join(path, '*.csv')):
 		teamNumber = row[7] 
 		comments = row[8]
 		sliderMeme = row[9]
-		gearPickerUper = row[10]
+		if row [10] == " true":
+			gearPickerUper = 1
+		else:
+			gearPickerUper =0
 
-		insertData = ("INSERT INTO scoutingData " "(teamNumber, matchNumber, aGearSuccess, aAllFuel, tGearNumber, tAllFuel, ClimbSuccess, climbTime, Comments, defense)" "VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s)")
-		data = (teamNumber, matchNumber, gearsInAuto, autoFuelPoints, teleopGears, teleopFuelPoints, didItClimb, timerCount, comments, sliderMeme)
+		insertData = ("INSERT INTO scoutingData " "(teamNumber, matchNumber, aGearSuccess, aAllFuel, tGearNumber, tAllFuel, ClimbSuccess, climbTime, Comments, defense, pickUpGear)" "VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)")
+		data = (teamNumber, matchNumber, gearsInAuto, autoFuelPoints, teleopGears, teleopFuelPoints, didItClimb, timerCount, comments, sliderMeme, gearPickerUper)
 		
 		print('Team Number:  ', teamNumber,' gearsInAuto ', gearsInAuto)
 
@@ -69,5 +72,5 @@ for filename in glob.glob(os.path.join(path, '*.csv')):
 	f.close()
 
 
-# Moves csv's to backups
+# Moves csv's  to backups
 subprocess.call("./MoveCsv.sh")
