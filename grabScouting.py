@@ -70,4 +70,4 @@ for filename in glob.glob(os.path.join(path, '*.csv')):
 
 
 # Moves csv's to backups
-#subprocess.call("./MoveCsv.sh")
+subprocess.call("./MoveCsv.sh")
